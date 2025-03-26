@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Smiling Star with Canvas</title>
+    <style>
+        body {
+            background-color: white;
+            display: flex;
+            height: 100vh;
+            align-items: center;
+            justify-content: center;
+            margin: 0;
+        }
+        canvas {
+            background-color: white;
+        }
+    </style>
+</head>
+<body>
+    <canvas id="starCanvas" width="400" height="400"></canvas>
+    <script>
+        const canvas = document.getElementById("starCanvas");
+        const ctx = canvas.getContext("2d");
+
+        function drawStar(cx, cy, spikes, outerRadius, innerRadius) {
+            let rot = Math.PI / 2 * 3;
+            let x = cx;
+            let y = cy;
+            const step = Math.PI / spikes;
+
+            ctx.beginPath();
+            ctx.moveTo(cx, cy - outerRadius);
+            for (let i = 0; i < spikes; i++) {
+                x = cx + Math.cos(rot) * outerRadius;
+                y = cy + Math.sin(rot) * outerRadius;
+                ctx.lineTo(x, y);
+                rot += step;
+
+                x = cx + Math.cos(rot) * innerRadius;
+                y = cy + Math.sin(rot) * innerRadius;
+                ctx.lineTo(x, y);
+                rot += step;
+            }
+            ctx.closePath();
+            ctx.fillStyle = "yellow";
+            ctx.fill();
+            ctx.strokeStyle = "black";
+            ctx.stroke();
+        }
+
+        function drawFace(cx, cy) {
+            // Eyes
+            ctx.fillStyle = "white";
+            ctx.beginPath();
+            ctx.arc(cx - 20, cy - 10, 10, 0, Math.PI * 2);
+            ctx.fill();
+
+            ctx.beginPath();
+            ctx.arc(cx + 20, cy - 10, 10, 0, Math.PI * 2);
+            ctx.fill();
+
+            ctx.fillStyle = "black";
+            ctx.beginPath();
+            ctx.arc(cx - 20, cy - 10, 5, 0, Math.PI * 2);
+            ctx.fill();
+
+            ctx.beginPath();
+            ctx.arc(cx + 20, cy - 10, 5, 0, Math.PI * 2);
+            ctx.fill();
+
+            // Light reflection in eyes
+            ctx.fillStyle = "white";
+            ctx.beginPath();
+            ctx.arc(cx - 22, cy - 12, 2, 0, Math.PI * 2);
+            ctx.fill();
+
+            ctx.beginPath();
+            ctx.arc(cx + 18, cy - 12, 2, 0, Math.PI * 2);
+            ctx.fill();
+
+            // Mouth with cartoon details
+            ctx.beginPath();
+        ctx.moveTo(180, 210); // Starting Point (shifted to the right)
+
+        // First Curved Line (smaller shape)
+        ctx.quadraticCurveTo(200, 220, 220, 210); 
+
+        // Second Curved Line (smaller shape, centered)
+        ctx.quadraticCurveTo(200, 240, 180, 210);
+
+        ctx.closePath(); // Connect the endpoints to form a closed shape
+
+        // Styling
+        ctx.fillStyle = "black"; // Fill color
+        ctx.fill();
+
+        ctx.strokeStyle = "black"; // Border color
+        ctx.lineWidth = 1;
+        ctx.stroke();
+
+            // Open mouth details (teeth)
+            ctx.fillStyle = "white";
+            ctx.fillRect(cx - 5, cy + 15, 4, 5);
+            ctx.fillRect(cx + 1, cy + 15, 4, 5);
+
+            // Cartoon-like mouth corners
+            ctx.beginPath();
+        ctx.moveTo(175, 212); // Starting Point (shifted to the right)
+
+        // First Curved Line (smaller shape)
+        ctx.quadraticCurveTo(180, 210, 181, 205); 
+        
+        //ctx.strokeStyle = "black"; // Border color
+        ctx.lineWidth = 1;
+        ctx.stroke();
+
+        ctx.beginPath();
+        ctx.moveTo(225, 212); // Starting Point (shifted to the right)
+
+        // First Curved Line (smaller shape)
+        ctx.quadraticCurveTo(220, 210, 219, 205); 
+        
+        //ctx.strokeStyle = "black"; // Border color
+        ctx.lineWidth = 1;
+        ctx.stroke();
+
+
+        }
+
+        drawStar(200, 200, 5, 100, 40);
+        drawFace(200, 200);
+    </script>
+</body>
+</html>
